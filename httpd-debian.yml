@@ -14,16 +14,4 @@
      dest: "/var/www/html/index.html"
      content:
         custom web page
-
-  - name: apache2 service enabled
-    ansible.builtin.service:
-     name: apache2
-     enabled: true
-     state: started
-  - name: open firewall
-    community.general.ufw:
-      rule: allow
-      port: 80
-      proto: tcp
-
 ...
