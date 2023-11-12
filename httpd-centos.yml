@@ -1,0 +1,20 @@
+# ansible n1 -m file -a "path=/home/centos/n1_dir state=directory"
+---
+- name: install httpd server
+  hosts: nn2
+  become: true
+  tasks:
+  - name: install httpd
+    yum:
+      name: httpd
+      state: present
+  - name: start httpd
+    service:
+      name: httpd
+      state: started
+  - name: enable httpd
+    service:
+      name: httpd
+      enabled: yes
+
+...      
