@@ -1,0 +1,12 @@
+# ansible n1 -m file -a "path=/home/centos/n1_dir state=directory"
+---
+- name: setup server
+  hosts: n1
+  become: true
+  tasks:
+  - name: apache installed
+    file:
+      path: /home/centos/new_dir
+      state: directory
+...
+
