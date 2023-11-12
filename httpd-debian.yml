@@ -9,9 +9,4 @@
      name: apache2
      update_cache: true
      state: latest
-  - name: custom index.html
-    ansible.builtin.copy:
-     dest: "/var/www/html/index.html"
-     content:
-        custom web page
 ...
