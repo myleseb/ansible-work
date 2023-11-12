@@ -1,0 +1,33 @@
+---
+- name: install httpd server
+  hosts: nn2
+  become: true
+  tasks:
+  - name: install httpd
+    yum:
+      name: httpd
+      state: present
+  - name: start httpd
+    service:
+      name: httpd
+      state: started
+  - name: enable httpd
+    service:
+      name: httpd
+      enabled: yes
+- name: install httpd server
+  hosts: nn1
+  become: true
+  tasks:
+  - name: apache installed
+    ansible.builtin.apt:
+     name: apache2
+     update_cache: true
+     state: latest
+  - name: custom index.html
+    ansible.builtin.copy:
+     dest: "/var/www/html/index.html"
+     content:
+        custom web page
+
+...
