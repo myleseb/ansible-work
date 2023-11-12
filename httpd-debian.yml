@@ -1,20 +1,29 @@
 # ansible n1 -m file -a "path=/home/centos/n1_dir state=directory"
 ---
 - name: install httpd server
-  hosts: nn2
+  hosts: nn1
   become: true
   tasks:
-  - name: install httpd
-    yum:
-      name: httpd
-      state: present
-  - name: start httpd
-    service:
-      name: httpd
-      state: started
-  - name: enable httpd
-    service:
-      name: httpd
-      enabled: yes
+  - name: apache installed
+    ansible.builtin.apt:
+     name: apache2
+     update_cache: true
+     state: latest
+  - name: custom index.html
+    ansible.builtin.copy:
+     dest: "/var/www/html/index.html"
+     content:
+        custom web page
 
-...      
+  - name: apache2 service enabled
+    ansible.builtin.service:
+     name: apache2
+     enabled: true
+     state: started
+  - name: open firewall
+    community.genral.ufw:
+      rule: allow
+      port: 80
+      proto: tcp
+
+...
